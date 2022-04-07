@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="gender">
+        <item>M (male)</item>
+        <item>F (female)</item>
+        <item>X (gender diverse)</item>
+    </string-array>
+</resources>

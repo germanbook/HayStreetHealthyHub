@@ -1,0 +1,65 @@
+<resources>
+
+    <string name="Button_Ok">Ok</string>
+    <string name="Button_Cancel">Cancel</string>
+    <string name="Button_Back">Back</string>
+
+    <!-- 01 Login Page -->
+    <string name="app_name">HayStreetHealthyHub</string>
+    <string name="Text_Login">Login</string>
+    <string name="Hint_LoginEmail">Enter Your E-mail</string>
+    <string name="Hint_LoginPassword">Enter Your Password</string>
+    <string name="Doctor_Text">I am a Doctor</string>
+    <string name="Button_Login">Login</string>
+    <string name="Button_Register">Join now</string>
+    <!-- ========== -->
+
+    <!-- 02 Register Page -->
+    <string name="Text_FirstName">First Name:</string>
+    <string name="Text_LastName">Last Name:</string>
+    <string name="Text_Email">E-mail:</string>
+    <string name="Text_Password">Password:</string>
+    <string name="Text_ConfirmPassword">Confirm:</string>
+    <string name="Text_PersonalInfo">Personal Info</string>
+    <string name="Text_Gender">Gender:</string>
+    <string name="Text_Dob">Date of Birth:</string>
+    <string name="Text_Height">Height(cm):</string>
+    <string name="Text_Weight">Weight(kg):</string>
+    <string name="Text_GP">GP:</string>
+    <string name="Button_RegistrationOk">Ok</string>
+    <string name="Button_RegistrationCancel">Cancel</string>
+    <string name="Button_ContactUs">Give Us a Call !</string>
+    <!-- ========== -->
+
+    <!-- 04 Personal Info Detail -->
+    <string name="Text_PersonalInfoDetail">Your Info</string>
+    <string name="Button_PersonalInfoDetailEdit">Edit</string>
+    <string name="Button_PersonalInfoDetailAppointment">Appointments</string>
+    <!-- ========== -->
+
+    <!-- 05 Patient's Doctor Note Page -->
+    <string name="Text_ClinicAddress">111 Hay St. Lower Hutt</string>
+    <!-- ========== -->
+
+    <!-- 06 Patient's Appointments Page -->
+    <string name="Button_Booking">Booking</string>
+    <!-- ========== -->
+
+    <!-- 07 Patient's Booking Appointments Page -->
+    <string name="Text_Date">Date:</string>
+    <string name="Text_Time">Time:</string>
+    <!-- ========== -->
+
+    <!-- 08 Doctor's first page -->
+    <string name="Button_SignOut">Sign Out</string>
+    <!-- -->
+
+    <!-- 09 Doctor's writing note page -->
+
+    <!-- -->
+
+    <!-- Dialogs -->
+    <string name="Register_title">Congratulation！</string>
+    <string name="Register_message">You have registered successfully, please return to login.</string>
+    <!-- -->
+</resources>
