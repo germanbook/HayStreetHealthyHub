@@ -45,7 +45,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
     private String dobDate;
 
     //22222222
-    // Assignment 1
+    // Assignment 2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
