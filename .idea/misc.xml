@@ -4,15 +4,26 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_button.xml" value="0.265" />
+        <entry key="app/src/main/res/drawable/custom_input.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/custom_name_icon.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/edit_background.xml" value="0.246" />
+        <entry key="app/src/main/res/drawable/firstname.xml" value="0.254" />
         <entry key="app/src/main/res/drawable/hay_st_logo_background.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_baseline_security_24.xml" value="0.254" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/login_password.xml" value="0.254" />
         <entry key="app/src/main/res/drawable/login_username.xml" value="0.263" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/user_registration_height.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/user_registration_name.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/user_registration_name_focused.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/user_registration_password.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/useremail.xml" value="0.254" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_personal_info04.xml" value="0.16574074074074074" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_registration02.xml" value="0.3729166666666667" />
-        <entry key="app/src/main/res/layout/patient_personal_info.xml" value="0.1318407960199005" />
+        <entry key="app/src/main/res/layout/activity_registration02.xml" value="0.24356672651107122" />
+        <entry key="app/src/main/res/layout/patient_personal_info.xml" value="0.2074074074074074" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/hay_st_logo.xml" value="0.1195" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1815" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1815" />

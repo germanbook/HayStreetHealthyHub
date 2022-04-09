@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="35dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -25,10 +25,10 @@
             <Spinner
                 android:id="@+id/PersonalInfo_Gender"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:entries="@array/gender"
                 android:layout_marginLeft="40dp"
-
+                android:background="@drawable/custom_input"
                 />
 
         </LinearLayout>
@@ -37,70 +37,61 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="35dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Text_Dob"
-                android:textSize="15dp"/>
+                android:textSize="20dp"/>
 
             <DatePicker
                 android:id="@+id/PersonalInfo_Dob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:datePickerMode="spinner"
-                android:calendarViewShown="false"/>
+                android:calendarViewShown="false"
+                android:background="@drawable/custom_input"/>
 
         </LinearLayout>
 
         <!-- Height -->
-        <LinearLayout
+        <EditText
+            android:id="@+id/PersonalInfo_Height"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_height="60dp"
+            android:inputType="numberDecimal"
+            android:textSize="20dp"
+            android:drawableStart="@drawable/user_registration_height"
+            android:background="@drawable/custom_input"
+            android:hint="@string/Text_Height"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawablePadding="12dp"
+            android:layout_marginTop="35dp"
+            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Text_Height"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/PersonalInfo_Height"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
-        </LinearLayout>
 
         <!-- Weight -->
-        <LinearLayout
+        <EditText
+            android:id="@+id/PersonalInfo_Weight"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Text_Weight"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/PersonalInfo_Weight"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
-        </LinearLayout>
+            android:layout_height="60dp"
+            android:inputType="numberDecimal"
+            android:textSize="20dp"
+            android:drawableStart="@drawable/user_registration_height"
+            android:hint="@string/Text_Weight"
+            android:background="@drawable/custom_input"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawablePadding="12dp"
+            android:layout_marginTop="35dp"/>
 
         <!-- GP -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="35dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,9 +101,10 @@
 
             <Spinner
                 android:id="@+id/PersonalInfo_GP"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginLeft="70dp"
+                android:background="@drawable/custom_input"
 
                 />
         </LinearLayout>
