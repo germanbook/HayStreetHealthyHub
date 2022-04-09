@@ -20,67 +20,42 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-
-            >
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:padding="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/login_username"
-                />
-            <EditText
-                android:id="@+id/LoginEmailInput"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center"
-                android:hint="@string/Hint_LoginEmail"
-                android:inputType="text"
-                android:textSize="25sp"
-                />
-
-        </LinearLayout>
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/LoginEmailInput"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/Hint_LoginEmail"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/login_username"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginTop="35dp"
 
-        >
+        />
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="5dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/login_password"
-            />
-        <EditText
-            android:id="@+id/LoginPasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:hint="@string/Hint_LoginPassword"
-            android:inputType="textPassword"
-            android:textSize="25sp"
-            />
-
-    </LinearLayout>
+    <EditText
+        android:id="@+id/LoginPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:hint="@string/Hint_LoginPassword"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/login_password"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginTop="35dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,7 +105,9 @@
             android:id="@+id/ButtonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_button"
             android:text="@string/Button_Login"
+            android:textColor="#FFFFFFFF"
             android:textSize="20sp" />
 
         <Button

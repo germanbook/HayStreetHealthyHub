@@ -8,6 +8,8 @@ import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -44,7 +47,14 @@ public class RegistrationActivity02 extends AppCompatActivity {
     private int doctorID;
     private String dobDate;
 
-    //22222222
+    // Validation marker for First name, Last nme, E-mail
+    // Whether they are empty or not can be checked by registration button
+    // but can not find any method to check whether EditText has error or not.
+    private boolean firstNameMarker = false;
+    private boolean lastNameMarker = false;
+    private boolean emailMarker = false;
+    // ========================================================================
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
 
         // DB Connection
         dbHelper = new DBHelper(RegistrationActivity02.this);
+
         //===================================================
 
         // Populate items for GP spinner
@@ -102,40 +113,70 @@ public class RegistrationActivity02 extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Perform click before submit
+                firstName.requestFocus();
+                lastName.requestFocus();
+                email.requestFocus();
 
-                // get dob from datepicker ====================================
-                int day = dob.getDayOfMonth();
-                int month = dob.getMonth() + 1;
-                int year = dob.getYear();
+                firstName.clearFocus();
+                lastName.clearFocus();
+                email.clearFocus();
+                // ============================
 
-                dobDate = getStringDate(day, month, year);
-                // =============================================================
-
-                Patient patient = new Patient(
-                                        firstName.getText().toString(),
-                                        lastName.getText().toString(),
-                                        email.getText().toString(),
-                                        password.getText().toString(),
-                                        gender.getSelectedItemPosition(),
-                                        dobDate,
-                                        Integer.parseInt(height.getText().toString()),
-                                        Integer.parseInt(weight.getText().toString()),
-                                        doctorID
-                                        );
-
-
-                if( dbHelper.patientRegistration(patient) )
+                // Check all input fields
+                // Make sure they are not empty
+                if(!firstName.getText().toString().matches("") &&
+                        !lastName.getText().toString().matches("") &&
+                        !email.getText().toString().matches("") &&
+                        !height.getText().toString().matches("") &&
+                        !weight.getText().toString().matches("") &&
+                        checkPassword(false) &&
+                        dbHelper.checkEmailAvailable(email.getText().toString().trim()) &&
+                        firstNameMarker &&
+                        lastNameMarker &&
+                        emailMarker
+                )
                 {
-                    // Registered!
-                    confirmRegistration();
+                    // get dob from datepicker ====================================
+                    int day = dob.getDayOfMonth();
+                    int month = dob.getMonth() + 1;
+                    int year = dob.getYear();
 
-                    //Toast.makeText(RegistrationActivity02.this, "Registered!", Toast.LENGTH_SHORT).show();
+                    dobDate = getStringDate(day, month, year);
+                    // =============================================================
+
+                    Patient patient = new Patient(
+                            firstName.getText().toString().trim(),
+                            lastName.getText().toString().trim(),
+                            email.getText().toString().trim(),
+                            password.getText().toString().trim(),
+                            gender.getSelectedItemPosition(),
+                            dobDate,
+                            Integer.parseInt(height.getText().toString().trim()),
+                            Integer.parseInt(weight.getText().toString().trim()),
+                            doctorID
+                    );
+
+
+                    if( dbHelper.patientRegistration(patient) )
+                    {
+                        // Registered!
+                        confirmRegistration();
+
+                        //Toast.makeText(RegistrationActivity02.this, "Registered!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        // Fail!
+                        Toast.makeText(RegistrationActivity02.this, "Fail!", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
-                    // Fail!
-                    Toast.makeText(RegistrationActivity02.this, "Fail!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity02.this, "All fields required, and check format!", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
 
@@ -150,6 +191,94 @@ public class RegistrationActivity02 extends AppCompatActivity {
 
             }
         });
+
+        //===================================================
+
+
+        // Input validation =================================
+        // First Name
+        firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus && !firstName.getText().toString().trim().matches(""))
+                {
+                    if(! firstName.getText().toString().trim().matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))
+                    {
+                        firstName.setError("Invalid format!");
+                        firstNameMarker = false;
+                    }
+                    else
+                    {
+                        firstNameMarker = true;
+                    }
+                }
+            }
+        });
+
+        // Last Name
+        lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus && !lastName.getText().toString().trim().matches(""))
+                {
+                    if(! lastName.getText().toString().trim().matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))
+                    {
+                        lastName.setError("Invalid format!");
+                        lastNameMarker = false;
+                    }
+                    else
+                    {
+                        lastNameMarker = true;
+                    }
+                }
+            }
+        });
+
+        // Email
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !email.getText().toString().trim().matches("")) {
+                    if(! email.getText().toString().trim().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
+                    {
+                        email.setError("Invalid format!");
+                        emailMarker = false;
+                    }
+                    else
+                    {
+                        if(!dbHelper.checkEmailAvailable(email.getText().toString().trim()))
+                        {
+                            email.setError("Email occupied! Please try another address!");
+                            emailMarker = false;
+                        }
+                        else
+                        {
+                            emailMarker = true;
+                        }
+
+                    }
+
+                }
+            }
+        });
+
+        // Password
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+
+                checkPassword(hasFocus);
+            }
+        });
+
+        // Confirm Password
+        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                checkPassword(hasFocus);
+            }
+        });
+
 
         //===================================================
 
@@ -201,4 +330,60 @@ public class RegistrationActivity02 extends AppCompatActivity {
 
         builder.create().show();
     }
+
+    // Password and Confirm fields validation
+    public boolean checkPassword(boolean hasFocus)
+    {
+        boolean returnValue = false;
+        // Passwords fields
+        String passwordValue = password.getText().toString().trim();
+        String confirmValue = confirmPassword.getText().toString().trim();
+
+        // Password loses focus
+        if(hasFocus == false)
+        {
+            // Password and Confirm both filled
+            // Check whether they are match
+            if(!passwordValue.matches("") && !confirmValue.matches(""))
+            {
+                // Not equal
+                if(!passwordValue.equals(confirmValue))
+                {
+                    confirmPassword.setError("Password did not match!");
+                    returnValue = false;
+                } // equal
+                else
+                {
+                    confirmPassword.setError(null);
+                    returnValue = true;
+                }
+            }
+
+        }
+
+        // Password is empty but Confirm filled
+        if(passwordValue.matches("") && !confirmValue.matches(""))
+        {
+            password.setError("Please fill password!");
+            returnValue = false;
+        }
+
+        // Password filled but Confirm is empty
+        if(!passwordValue.matches("") && confirmValue.matches(""))
+        {
+            confirmPassword.setError("Please confirm password!");
+            returnValue = false;
+        }
+
+        // Both empty
+        if(passwordValue.matches("") && confirmValue.matches(""))
+        {
+            password.setError(null);
+            confirmPassword.setError(null);
+            returnValue = false;
+        }
+
+        return returnValue;
+    }
+
 }

@@ -143,10 +143,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(sql, null);
 
-        while(cursor.moveToNext())
+        if(cursor != null)
         {
-            String name = cursor.getString(cursor.getColumnIndexOrThrow("firstName"));
-            doctorNames.add(name);
+            while(cursor.moveToNext())
+            {
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("firstName"));
+                doctorNames.add(name);
+            }
+        }
+        else
+        {
+            doctorNames.add("No Data, ask admin to add Doctor.");
         }
 
         return doctorNames;
@@ -170,6 +177,22 @@ public class DBHelper extends SQLiteOpenHelper {
             id = cursor.getInt(cursor.getColumnIndexOrThrow("ID"));
         }
         return id;
+    }
+
+    // Check whether email address is available
+    public boolean checkEmailAvailable(String email)
+    {
+        // True: email address available
+        boolean returnValue = true;
+        String sql = "SELECT ID FROM Patient WHERE email = " + "'" + email + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql,null);
+        if( cursor != null && cursor.moveToNext() )
+        {
+            // Email address occupied
+            returnValue = false;
+        }
+        return returnValue;
     }
 
 }
