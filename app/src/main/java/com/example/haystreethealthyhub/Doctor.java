@@ -3,9 +3,9 @@ package com.example.haystreethealthyhub;
 public class Doctor extends User{
 
 
-    public Doctor(int id, String email, String password)
+    public Doctor(int id, String firstName, String email, String password)
     {
-        super(id, email, password);
+        super(id, firstName, email, password);
     }
 
     public Doctor(String firstName, String lastName, String email, String password)

@@ -4,8 +4,15 @@
     <string name="Button_Cancel">Cancel</string>
     <string name="Button_Back">Back</string>
 
+    <!-- Patient Home Main Menu -->
+    <string name="Click_Website">www.haystreethealthyhub.com</string>
+    <string name="Patient_Main_Menu_Open">Open Menu</string>
+    <string name="Patient_Main_Menu_Close">Close Menu</string>
+    <string name="Patient_Home_Title">My Health</string>
+    <!-- -->
+
     <!-- 01 Login Page -->
-    <string name="app_name">HayStreetHealthyHub</string>
+    <string name="app_name">HayStreetHealthyHub....</string>
     <string name="Text_Login">Login</string>
     <string name="Hint_LoginEmail">Enter Your E-mail</string>
     <string name="Hint_LoginPassword">Enter Your Password</string>

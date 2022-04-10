@@ -66,10 +66,11 @@ public class DBHelper extends SQLiteOpenHelper {
         while(cursor.moveToNext())
         {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("ID"));
+            String userName = cursor.getString(cursor.getColumnIndexOrThrow("firstName"));
             String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
             String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
 
-            usersLogin.add(new Patient(email, password, id));
+            usersLogin.add(new Patient(id, userName, email, password));
         }
 
         return usersLogin;
@@ -89,10 +90,11 @@ public class DBHelper extends SQLiteOpenHelper {
         while(cursor.moveToNext())
         {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("ID"));
+            String firstName = cursor.getString(cursor.getColumnIndexOrThrow("firstName"));
             String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
             String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
 
-            doctorsLogin.add(new Doctor(id, email, password));
+            doctorsLogin.add(new Doctor(id, firstName, email, password));
         }
 
         return doctorsLogin;
