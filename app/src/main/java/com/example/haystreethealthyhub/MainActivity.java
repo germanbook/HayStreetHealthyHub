@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private Switch switchDoctor;
     private Button buttonContactUs;
 
-    // current user ID
+    // current user ID and name
     private int userID;
+    private String userName;
     // =======================
 
     @Override
@@ -80,10 +81,13 @@ public class MainActivity extends AppCompatActivity {
                     // loop all login
                     for (int i = 0; i < usersLogin.size(); i ++)
                     {
+                        String tempEmail = usersLogin.get(i).getEmail();
+                        String tempPassword = usersLogin.get(i).getPassword();
 
                         if(loginEmail.equals(usersLogin.get(i).getEmail()) && loginPassword.equals(usersLogin.get(i).getPassword()))
                         {
                             userID = usersLogin.get(i).getId();
+                            userName = usersLogin.get(i).getFirstName();
                             isLoginSuccess = true;
                             i = usersLogin.size();
 
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     if(isLoginSuccess)
                     {
                         Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                        // TODO: 2/04/22  turn to Activity 4 and pass user ID
+
 
                         if(switchDoctor.isChecked())
                         {
@@ -108,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
                         else
                         {
                             // User is a Patient
-                            Intent intent = new Intent(MainActivity.this, PersonalInfoActivity04.class);
+                            Intent intent = new Intent(MainActivity.this, PatientHomeMenuActivity04.class);
                             intent.putExtra("ID", userID);
+                            intent.putExtra("Name", userName);
                             startActivity(intent);
                         }
 

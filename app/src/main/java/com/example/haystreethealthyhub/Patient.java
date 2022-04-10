@@ -12,9 +12,9 @@ public class Patient extends User {
 
 
     // This Constructor used by DBHelper.getAllPatientsLogin()
-    public Patient(String email, String password, int id)
+    public Patient(int id, String firstName, String email, String password)
     {
-        super(id, email, password);
+        super(id, firstName, email, password);
     };
 
     public Patient(String firstName, String lastName, String email, String password, int gender, String dob, int height, int weight, int gp)

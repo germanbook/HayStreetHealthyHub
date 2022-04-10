@@ -9,16 +9,12 @@
     android:background="@drawable/bg_01"
     >
 
-    <TextView
-        android:id="@+id/LoginText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="@string/Text_Login"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="148dp"
+        android:layout_gravity="center"
+        android:src="@drawable/hay_street_healthy_hub_logo"
+        android:layout_marginTop="50dp"/>
 
     <EditText
         android:id="@+id/LoginEmailInput"
@@ -35,7 +31,7 @@
         android:drawablePadding="12dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
 
         />
 
