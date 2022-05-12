@@ -1,7 +1,5 @@
 package com.example.haystreethealthyhub;
 
-import java.util.Date;
-
 public class Patient extends User {
 
     private int gender;
@@ -10,6 +8,7 @@ public class Patient extends User {
     private int weight;
     private int gp;
 
+    public Patient(){};
 
     // This Constructor used by DBHelper.getAllPatientsLogin()
     public Patient(int id, String firstName, String email, String password)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="#9FC96F" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <item android:drawable="@color/button_unpressed" android:state_pressed="false" />
+    <item android:drawable="@color/button_pressed" android:state_pressed="true" />
 
-</shape>
+</selector>

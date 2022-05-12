@@ -1,24 +1,21 @@
 package com.example.haystreethealthyhub;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Layout;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
 
 public class PatientHomeMenuActivity04 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,6 +27,12 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
     //Patient Navigation View Name
     TextView textView;
 
+    // User identity
+    int userID;
+    String userName;
+
+    PatientProfileFragment patientProfileFragment = new PatientProfileFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +40,13 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
 
         // Users ID and Name
         Intent thisIntent = getIntent();
-        int userID = thisIntent.getIntExtra("ID", 0);
-        String userName = thisIntent.getStringExtra("Name");
+        userID = thisIntent.getIntExtra("ID", 0);
+        userName = thisIntent.getStringExtra("Name");
+
+        // Set User ID to profile fragment
+        Bundle bundle = new Bundle();
+        bundle.putInt("userID", userID);
+        patientProfileFragment.setArguments(bundle);
 
         //Patient Navigation View Name
         NavigationView navigationView = findViewById(R.id.PatientHomeNavView);
@@ -68,6 +76,9 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
 
     }
 
+    // todo
+    // override onBackPressed()
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -77,10 +88,12 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
                 drawerLayout.closeDrawers();
                 break;
             case R.id.Nav_menu_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, patientProfileFragment).commit();
                 break;
             case R.id.Nav_menu_appointment:
                 break;
             case R.id.Nav_menu_logout:
+                confirmLogout();
                 break;
 
         }
@@ -89,4 +102,31 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
 
         return true;
     }
+
+    // Logout Dialog
+    public void confirmLogout()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout")
+                .setMessage("Do you want to logout!")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(PatientHomeMenuActivity04.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.create().show();
+    }
+
+
 }

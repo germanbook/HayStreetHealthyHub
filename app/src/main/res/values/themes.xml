@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Set ActionMode overlay toolbar -->
+        <item name="windowActionModeOverlay">true</item>
+
+        <!-- Disable back button for ActionMode -->
+
+
     </style>
 </resources>

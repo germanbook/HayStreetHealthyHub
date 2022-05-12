@@ -1,15 +1,10 @@
 package com.example.haystreethealthyhub;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,15 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
 
-public class RegistrationActivity02 extends AppCompatActivity {
+public class RegistrationActivity02 extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private DBHelper dbHelper;
     private EditText firstName;
@@ -37,7 +30,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
     private EditText password;
     private EditText confirmPassword;
     private Spinner gender;
-    private DatePicker dob;
+    private TextView dob;
     private EditText height;
     private EditText weight;
     private Spinner gp;
@@ -54,6 +47,9 @@ public class RegistrationActivity02 extends AppCompatActivity {
     private boolean lastNameMarker = false;
     private boolean emailMarker = false;
     // ========================================================================
+
+    // Inner tool class
+    RegistrationActivity02.Tools tools = new RegistrationActivity02.Tools();
 
 
     @Override
@@ -83,12 +79,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
         //===================================================
 
         // Populate items for GP spinner
-        List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray = dbHelper.getDoctorsName();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gp.setAdapter(adapter);
+        setGpSpinner(dbHelper, gp);
         // ===================================================
 
         // Fetch Doctor's ID =================================
@@ -108,41 +99,37 @@ public class RegistrationActivity02 extends AppCompatActivity {
 
         // ==================================================
 
+        // Dob
+
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
+        // ==================================================
+
+
         // Buttons ==========================================
         // Registration
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Perform click before submit
-                firstName.requestFocus();
-                lastName.requestFocus();
-                email.requestFocus();
-
-                firstName.clearFocus();
-                lastName.clearFocus();
-                email.clearFocus();
+                tools.performClick(firstName, lastName, email);
                 // ============================
 
                 // Check all input fields
                 // Make sure they are not empty
-                if(!firstName.getText().toString().matches("") &&
-                        !lastName.getText().toString().matches("") &&
-                        !email.getText().toString().matches("") &&
-                        !height.getText().toString().matches("") &&
-                        !weight.getText().toString().matches("") &&
-                        checkPassword(false) &&
+                if(tools.checkEmpty(firstName, lastName, email, height, weight, dob) &&
+                        tools.checkPassword(false, password, confirmPassword) &&
                         dbHelper.checkEmailAvailable(email.getText().toString().trim()) &&
                         firstNameMarker &&
                         lastNameMarker &&
                         emailMarker
                 )
                 {
-                    // get dob from datepicker ====================================
-                    int day = dob.getDayOfMonth();
-                    int month = dob.getMonth() + 1;
-                    int year = dob.getYear();
-
-                    dobDate = getStringDate(day, month, year);
                     // =============================================================
 
                     Patient patient = new Patient(
@@ -151,7 +138,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
                             email.getText().toString().trim(),
                             password.getText().toString().trim(),
                             gender.getSelectedItemPosition(),
-                            dobDate,
+                            dob.getText().toString().trim(),
                             Integer.parseInt(height.getText().toString().trim()),
                             Integer.parseInt(weight.getText().toString().trim()),
                             doctorID
@@ -192,8 +179,11 @@ public class RegistrationActivity02 extends AppCompatActivity {
             }
         });
 
-        //===================================================
+        /*
+        ===================================================
+         TODO dob validation needed 10-05-2020
 
+        */
 
         // Input validation =================================
         // First Name
@@ -267,7 +257,7 @@ public class RegistrationActivity02 extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
 
-                checkPassword(hasFocus);
+                tools.checkPassword(hasFocus, password, confirmPassword);
             }
         });
 
@@ -275,44 +265,24 @@ public class RegistrationActivity02 extends AppCompatActivity {
         confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                checkPassword(hasFocus);
+                tools.checkPassword(hasFocus, password, confirmPassword);
             }
         });
 
 
-        //===================================================
+        //End of Validation ===================================================
 
     }
 
-    // Get a Date in String format
-    public String getStringDate(int day, int month, int year)
+    // Show Date picker dialog
+    private void showDatePickerDialog()
     {
-
-        String _day;
-        String _month;
-        //String _year;
-
-        if(month < 10)
-        {
-            _month = "0" + String.valueOf(month);
-        }
-        else
-        {
-            _month = String.valueOf(month);
-        }
-
-        if(day < 10){
-
-            _day  = "0" + String.valueOf(day);
-        }
-        else
-        {
-            _day = String.valueOf(day);
-        }
-
-        String strDate = _day + "-" + _month + "-" + String.valueOf(year);
-        return strDate;
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
+    // ===================================================
 
     // Registration Dialog
     public void confirmRegistration()
@@ -331,59 +301,118 @@ public class RegistrationActivity02 extends AppCompatActivity {
         builder.create().show();
     }
 
-    // Password and Confirm fields validation
-    public boolean checkPassword(boolean hasFocus)
+
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth)
     {
-        boolean returnValue = false;
-        // Passwords fields
-        String passwordValue = password.getText().toString().trim();
-        String confirmValue = confirmPassword.getText().toString().trim();
+        String date = dayOfMonth + "-" + (month + 1) + "-" + year;
+        dob.setText(date);
 
-        // Password loses focus
-        if(hasFocus == false)
-        {
-            // Password and Confirm both filled
-            // Check whether they are match
-            if(!passwordValue.matches("") && !confirmValue.matches(""))
-            {
-                // Not equal
-                if(!passwordValue.equals(confirmValue))
-                {
-                    confirmPassword.setError("Password did not match!");
-                    returnValue = false;
-                } // equal
-                else
-                {
-                    confirmPassword.setError(null);
-                    returnValue = true;
-                }
-            }
-
-        }
-
-        // Password is empty but Confirm filled
-        if(passwordValue.matches("") && !confirmValue.matches(""))
-        {
-            password.setError("Please fill password!");
-            returnValue = false;
-        }
-
-        // Password filled but Confirm is empty
-        if(!passwordValue.matches("") && confirmValue.matches(""))
-        {
-            confirmPassword.setError("Please confirm password!");
-            returnValue = false;
-        }
-
-        // Both empty
-        if(passwordValue.matches("") && confirmValue.matches(""))
-        {
-            password.setError(null);
-            confirmPassword.setError(null);
-            returnValue = false;
-        }
-
-        return returnValue;
     }
 
+    // Populate items for GP spinner
+    public void setGpSpinner(DBHelper dbHelper, Spinner gp)
+    {
+        List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray = dbHelper.getDoctorsName();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gp.setAdapter(adapter);
+        // ===================================================
+    }
+
+    // Inner static tool class
+    public static class Tools {
+
+        // Perform EditText click
+        public void performClick(EditText firstName, EditText lastName, EditText email)
+        {
+            // Perform click before submit
+            firstName.requestFocus();
+            lastName.requestFocus();
+            email.requestFocus();
+
+            firstName.clearFocus();
+            lastName.clearFocus();
+            email.clearFocus();
+            // ============================
+        }
+
+        // Check EditText empty
+        public boolean checkEmpty(EditText firstName, EditText lastName, EditText email,
+                                  EditText height, EditText weight, TextView dob)
+        {
+            if(!firstName.getText().toString().matches("") &&
+                    !lastName.getText().toString().matches("") &&
+                    !email.getText().toString().matches("") &&
+                    !height.getText().toString().matches("") &&
+                    !weight.getText().toString().matches("") &&
+                    !dob.getText().toString().matches(""))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Password and Confirm fields validation
+        public boolean checkPassword(boolean hasFocus, EditText password, EditText confirmPassword)
+        {
+            boolean returnValue = false;
+            // Passwords fields
+            String passwordValue = password.getText().toString().trim();
+            String confirmValue = confirmPassword.getText().toString().trim();
+
+            // Password loses focus
+            if(hasFocus == false)
+            {
+                // Password and Confirm both filled
+                // Check whether they are match
+                if(!passwordValue.matches("") && !confirmValue.matches(""))
+                {
+                    // Not equal
+                    if(!passwordValue.equals(confirmValue))
+                    {
+                        confirmPassword.setError("Password did not match!");
+                        returnValue = false;
+                    } // equal
+                    else
+                    {
+                        confirmPassword.setError(null);
+                        returnValue = true;
+                    }
+                }
+
+            }
+
+            // Password is empty but Confirm filled
+            if(passwordValue.matches("") && !confirmValue.matches(""))
+            {
+                password.setError("Please fill password!");
+                returnValue = false;
+            }
+
+            // Password filled but Confirm is empty
+            if(!passwordValue.matches("") && confirmValue.matches(""))
+            {
+                confirmPassword.setError("Please confirm password!");
+                returnValue = false;
+            }
+
+            // Both empty
+            if(passwordValue.matches("") && confirmValue.matches(""))
+            {
+                password.setError(null);
+                confirmPassword.setError(null);
+                returnValue = false;
+            }
+
+            return returnValue;
+        }
+
+    }
 }
