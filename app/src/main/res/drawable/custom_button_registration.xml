@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#609FC96F" />
+    <!--
+    #40FFFFFF
+    The Transparent color style
+    #00 - #99 : transparent - non transparent
+    FFFFFF : color code
+    -->
+
+</shape>

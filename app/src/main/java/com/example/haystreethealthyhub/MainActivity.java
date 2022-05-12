@@ -1,7 +1,5 @@
 package com.example.haystreethealthyhub;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("ID", userID);
                             intent.putExtra("Name", userName);
                             startActivity(intent);
+                            finish();
                         }
 
 

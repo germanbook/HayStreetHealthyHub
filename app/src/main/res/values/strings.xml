@@ -18,7 +18,7 @@
     <string name="Hint_LoginPassword">Enter Your Password</string>
     <string name="Doctor_Text">I am a Doctor</string>
     <string name="Button_Login">Login</string>
-    <string name="Button_Register">Join now</string>
+    <string name="Button_Register">Patient Registration</string>
     <!-- ========== -->
 
     <!-- 02 Register Page -->
@@ -36,6 +36,8 @@
     <string name="Button_RegistrationOk">Ok</string>
     <string name="Button_RegistrationCancel">Cancel</string>
     <string name="Button_ContactUs">Give Us a Call !</string>
+
+    <string name="Text_Dob_Hint">DD/MM/YYYY</string>
     <!-- ========== -->
 
     <!-- 04 Personal Info Detail -->

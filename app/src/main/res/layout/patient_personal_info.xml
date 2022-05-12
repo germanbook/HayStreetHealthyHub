@@ -4,116 +4,202 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <!-- Contents -->
+    <ScrollView
+        android:id="@+id/Registration_Contents"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent"
+        android:layout_marginBottom="1dp">
 
-        <!-- Gender -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Text_Gender"
-                android:textSize="20dp"/>
-
-            <Spinner
-                android:id="@+id/PersonalInfo_Gender"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:entries="@array/gender"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/custom_input"
-                />
-
-        </LinearLayout>
-
-        <!-- Dob -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Text_Dob"
-                android:textSize="20dp"/>
-
-            <DatePicker
-                android:id="@+id/PersonalInfo_Dob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"
-                android:background="@drawable/custom_input"/>
-
-        </LinearLayout>
-
-        <!-- Height -->
-        <EditText
-            android:id="@+id/PersonalInfo_Height"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:inputType="numberDecimal"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/user_registration_height"
-            android:background="@drawable/custom_input"
-            android:hint="@string/Text_Height"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:drawablePadding="12dp"
-            android:layout_marginTop="35dp"
-            />
-
-
-        <!-- Weight -->
-        <EditText
-            android:id="@+id/PersonalInfo_Weight"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:inputType="numberDecimal"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/user_registration_height"
-            android:hint="@string/Text_Weight"
-            android:background="@drawable/custom_input"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:drawablePadding="12dp"
-            android:layout_marginTop="35dp"/>
-
-        <!-- GP -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Text_GP"
-                android:textSize="20dp"/>
-
-            <Spinner
-                android:id="@+id/PersonalInfo_GP"
+            <!-- First Name -->
+            <EditText
+                android:id="@+id/Registration_FirstName"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginLeft="70dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/custom_input"
-
+                android:drawableStart="@drawable/user_registration_name"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_FirstName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp"
                 />
+
+            <!-- Last Name -->
+            <EditText
+                android:id="@+id/Registration_LastName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_name"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_LastName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/Registration_Email"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_email"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_Email"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+            <!-- Password -->
+            <EditText
+                android:id="@+id/Registration_Password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_password"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_Password"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+            <!-- Confirm Password -->
+            <EditText
+                android:id="@+id/Registration_ConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_password"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_ConfirmPassword"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+            <!-- Patient Personal Info -->
+            <!-- Gender -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text_Gender"
+                    android:textSize="20dp" />
+
+                <Spinner
+                    android:id="@+id/PersonalInfo_Gender"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/custom_input"
+                    android:entries="@array/gender" />
+
+            </LinearLayout>
+
+            <!-- Dob -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp">
+
+                <!-- Dob -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text_Dob"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/PersonalInfo_Dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/user_registration_dob"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/Text_Dob_Hint"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <!-- Height -->
+            <EditText
+                android:id="@+id/PersonalInfo_Height"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_height"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_Height"
+                android:inputType="numberDecimal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+
+            <!-- Weight -->
+            <EditText
+                android:id="@+id/PersonalInfo_Weight"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/user_registration_height"
+                android:drawablePadding="12dp"
+                android:hint="@string/Text_Weight"
+                android:inputType="numberDecimal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20dp" />
+
+            <!-- GP -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text_GP"
+                    android:textSize="20dp" />
+
+                <Spinner
+                    android:id="@+id/PersonalInfo_GP"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="70dp"
+                    android:background="@drawable/custom_input"
+
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
-
-
-    </LinearLayout>
-
-
+    </ScrollView>
 
 
 </LinearLayout>
