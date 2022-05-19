@@ -5,32 +5,6 @@
     android:background="@drawable/bg_05"
     >
 
-    <!-- Bottom button -->
-    <!--
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:background="#40FFFFFF"
-
-        >
-
-        <Button
-            android:id="@+id/Registration_ButtonOk"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:text="@string/Button_PersonalInfoDetailEdit"
-            android:background="@drawable/custom_button"
-            android:textSize="20dp"
-            />
-
-
-    </LinearLayout>
-    -->
-
     <!-- Patient personal info layout -->
     <LinearLayout
         android:layout_width="match_parent"

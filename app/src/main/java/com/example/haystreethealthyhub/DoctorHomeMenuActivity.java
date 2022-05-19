@@ -1,7 +1,5 @@
 package com.example.haystreethealthyhub;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,47 +15,50 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class PatientHomeMenuActivity04 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class DoctorHomeMenuActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener{
 
     Toolbar toolbar;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
 
-    //Patient Navigation View Name
-    TextView textView;
-
     // User identity
     int userID;
     String userName;
+    String userType;
 
-    PatientProfileFragment patientProfileFragment = new PatientProfileFragment();
+    AppointmentListFragment appointmentListFragment = new AppointmentListFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_home_menu04);
+        setContentView(R.layout.activity_doctor_home_menu);
 
         // Users ID and Name
         Intent thisIntent = getIntent();
         userID = thisIntent.getIntExtra("ID", 0);
         userName = thisIntent.getStringExtra("Name");
+        userType = thisIntent.getStringExtra("UserType");
 
-        // Set User ID to profile fragment
+        // Set User ID to  fragments
         Bundle bundle = new Bundle();
         bundle.putInt("userID", userID);
-        patientProfileFragment.setArguments(bundle);
+        bundle.putString("userType", userType);
 
-        //Patient Navigation View Name
-        NavigationView navigationView = findViewById(R.id.PatientHomeNavView);
+        // Appointments fragment
+        appointmentListFragment.setArguments(bundle);
+        // ======================================================
+
+
+        // Navigation View Name
+        NavigationView navigationView = findViewById(R.id.DoctorHomeNavView);
         View headerLayout = navigationView.getHeaderView(0);
         TextView textView = headerLayout.findViewById(R.id.Main_Menu_Username);
         textView.setText("Welcome " + userName + " !");
         // ======================================================
         // Hooks
-        toolbar = findViewById(R.id.PatientHomeToolbar);
-        navigationView = findViewById(R.id.PatientHomeNavView);
-        drawerLayout = findViewById(R.id.PatientHomeDrawerLayout);
+        toolbar = findViewById(R.id.DoctorHomeToolbar);
+        drawerLayout = findViewById(R.id.DoctorHomeDrawerLayout);
 
         // Toolbar
         setSupportActionBar(toolbar);
@@ -72,28 +73,24 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
     }
-
-    // todo
-    // override onBackPressed()
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId())
         {
-            case R.id.Nav_menu_home:
+            case R.id.doctor_menu_home:
                 drawerLayout.closeDrawers();
                 break;
-            case R.id.Nav_menu_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, patientProfileFragment).commit();
+            case R.id.doctor_menu_patients:
                 break;
-            case R.id.Nav_menu_appointment:
+            case R.id.doctor_menu_appointment:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, appointmentListFragment)
+                        .commit();
                 break;
-            case R.id.Nav_menu_logout:
-                confirmLogout();
+            case R.id.doctor_menu_logout:
+                PatientHomeMenuActivity.Tools.confirmLogout(this);
                 break;
 
         }
@@ -102,31 +99,4 @@ public class PatientHomeMenuActivity04 extends AppCompatActivity implements Navi
 
         return true;
     }
-
-    // Logout Dialog
-    public void confirmLogout()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Logout")
-                .setMessage("Do you want to logout!")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(PatientHomeMenuActivity04.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-
-        builder.create().show();
-    }
-
-
 }

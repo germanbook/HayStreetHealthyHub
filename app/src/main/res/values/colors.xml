@@ -10,4 +10,7 @@
     <color name="button_pressed">#94C5E69E</color>
     <color name="button_unpressed">#A7CD7B</color>
     <color name="profile_editbar">#9FC96F</color>
+    <color name="appointment_item_pressed">#C34C4C4B</color>
+    <color name="appointment_list_bg">#F5F6E8</color>
+    <color name="appoinsssstment_list_bg">#E4414343</color>
 </resources>

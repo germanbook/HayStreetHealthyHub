@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context)
     {
-        super(context,"UserDB",null, 1);
+        super(context,"UserDB",null, 2);
     }
 
     @Override
@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 );
 
 
+        // TODO add a new column called 'visitReason'
         // Create Appointment Table
         sqLiteDatabase.execSQL("CREATE TABLE Appointment (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -53,6 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "note TEXT," +
                 "date TEXT," +
                 "time TEXT," +
+                "visitReason TEXT," +
                 "FOREIGN KEY(patient_ID) REFERENCES Patient(ID)," +
                 "FOREIGN KEY(doctor_ID) REFERENCES Doctor(ID))"
                 );
@@ -66,6 +68,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 " dob, height, weight, gp)" +
                 "VALUES ('Jack', 'Johnson', 'jack@jack.com', 'jack', '1', '10-10-1985', '185', '70', '1')," +
                 "('Bowen', 'Zhang', 'bowen@bowen.com', 'bowen', '1', '25-10-2000', '182', '95', '2')");
+        sqLiteDatabase.execSQL("INSERT INTO Appointment (patient_ID, doctor_ID, status, note, date, " +
+                " time, visitReason)" +
+                "VALUES ('1', '2', '4', 'No big problem, just take some Panadol.', '12-5-2022', " +
+                "'14:30', 'Intermittent stomach pains, accompanied by vomiting, have been going on for a week.')");
+        sqLiteDatabase.execSQL("INSERT INTO Appointment (patient_ID, doctor_ID, status, note, date, " +
+                " time, visitReason)" +
+                "VALUES ('1', '1', '4', '', '12-6-2022', " +
+                "'11:30', 'Head Spining')");
 
 
     }
@@ -150,7 +160,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long count = db.insert("Patient", null, values);
 
         // Insert
-        if( count == -1)
+        if( count == 0)
         {
             return false;
         }
@@ -158,8 +168,6 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             return true;
         }
-
-
 
     }
 
@@ -218,6 +226,24 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String sql = "SELECT firstName FROM Doctor WHERE ID = " + "'" + id + "'";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            //for testing getInt
+            firstName = cursor.getString(cursor.getColumnIndexOrThrow("firstName"));
+        }
+        return firstName;
+    }
+
+    // Fetch Doctor's Name
+    public String getPatientName(int id)
+    {
+        String firstName = "";
+        // db
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sql = "SELECT firstName FROM Patient WHERE ID = " + "'" + id + "'";
 
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -301,4 +327,115 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Get all appointments by ID for specific user
+    public ArrayList<Appointment> getAllAppointment(int id, String userType)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        String query;
+        if(userType.equals("P"))
+        {
+            query = "SELECT * FROM Appointment WHERE patient_ID = " + id;
+        }
+        else
+        {
+            query = "SELECT * FROM Appointment WHERE doctor_ID = " + id;
+        }
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while(cursor != null && cursor.moveToNext())
+        {
+            int ID = cursor.getInt(cursor.getColumnIndexOrThrow("ID"));
+            int patient_ID = cursor.getInt(cursor.getColumnIndexOrThrow("patient_ID"));
+            int doctor_ID = cursor.getInt(cursor.getColumnIndexOrThrow("doctor_ID"));
+            int status = cursor.getInt(cursor.getColumnIndexOrThrow("status"));
+            String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+            String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
+            String visitReason = cursor.getString(cursor.getColumnIndexOrThrow("visitReason"));
+
+            appointments.add(new Appointment(ID, patient_ID, doctor_ID, status, note, date,
+                                            time, visitReason));
+        }
+
+        return appointments;
+    }
+
+    // Appointment cancel
+    public boolean appointmentCancel(int appointmentID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "UPDATE Appointment SET status = 1 WHERE ID = " + appointmentID;
+
+        ContentValues values = new ContentValues();
+        values.put("status", 1);
+
+        long count = db.update("Appointment", values, "ID=?",
+                new String[]{Integer.toString(appointmentID)});
+
+        // update
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Patient Registration
+    public boolean appointmentBooking(Appointment appointment)
+    {
+        // db
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("patient_ID", appointment.getPatientID());
+        values.put("doctor_ID", appointment.getDoctorID());
+        values.put("status", appointment.getStatus());
+        values.put("date", appointment.getDate());
+        values.put("time", appointment.getTime());
+        values.put("visitReason", appointment.getVisitReason());
+
+        long count = db.insert("Appointment", null, values);
+
+        // Insert
+        if( count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+
+    public int getAppointmentStatus(int appointmentID)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int status = -1;
+
+        String query = "SELECT status FROM Appointment WHERE ID = " + appointmentID;
+        Cursor cursor = db.rawQuery(query, null);
+
+        while(cursor != null && cursor.moveToNext())
+        {
+            status = cursor.getInt(cursor.getColumnIndexOrThrow("status"));
+        }
+
+        return status;
+    }
+
+    // Appointment Remove
+    public boolean appointmentRemove(int appointmentID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        long count = db.delete("Appointment", "ID=?", new String[]{Integer.toString(appointmentID)});
+
+        // update
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

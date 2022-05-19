@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.LoginEmailInput);
         password = findViewById(R.id.LoginPasswordInput);
         buttonLogin = findViewById(R.id.ButtonLogin);
-        buttonJoinNow = findViewById(R.id.ButtonJoinNow);
+        buttonJoinNow = findViewById(R.id.ButtonRegistration);
         switchDoctor = findViewById(R.id.LoginDoctorSwitch);
         buttonContactUs = findViewById(R.id.ButtonContactUs);
 
@@ -108,13 +108,20 @@ public class MainActivity extends AppCompatActivity {
                         if(switchDoctor.isChecked())
                         {
                             // User is a Doctor
+                            Intent intent = new Intent(MainActivity.this, DoctorHomeMenuActivity.class);
+                            intent.putExtra("ID", userID);
+                            intent.putExtra("Name", userName);
+                            intent.putExtra("UserType", "D");
+                            startActivity(intent);
+                            finish();
                         }
                         else
                         {
                             // User is a Patient
-                            Intent intent = new Intent(MainActivity.this, PatientHomeMenuActivity04.class);
+                            Intent intent = new Intent(MainActivity.this, PatientHomeMenuActivity.class);
                             intent.putExtra("ID", userID);
                             intent.putExtra("Name", userName);
+                            intent.putExtra("UserType", "P");
                             startActivity(intent);
                             finish();
                         }
@@ -137,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         buttonJoinNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RegistrationActivity02.class);
+                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
                 startActivity(intent);
             }
         });

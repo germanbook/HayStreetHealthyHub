@@ -2,6 +2,7 @@ package com.example.haystreethealthyhub;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class RegistrationActivity02 extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private DBHelper dbHelper;
     private EditText firstName;
@@ -49,7 +50,7 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
     // ========================================================================
 
     // Inner tool class
-    RegistrationActivity02.Tools tools = new RegistrationActivity02.Tools();
+    RegistrationActivity.Tools tools = new RegistrationActivity.Tools();
 
 
     @Override
@@ -74,12 +75,12 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
         // ===================================================
 
         // DB Connection
-        dbHelper = new DBHelper(RegistrationActivity02.this);
+        dbHelper = new DBHelper(RegistrationActivity.this);
 
         //===================================================
 
         // Populate items for GP spinner
-        setGpSpinner(dbHelper, gp);
+        RegistrationActivity.Tools.setGpSpinner(dbHelper, gp, this);
         // ===================================================
 
         // Fetch Doctor's ID =================================
@@ -155,12 +156,12 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
                     else
                     {
                         // Fail!
-                        Toast.makeText(RegistrationActivity02.this, "Fail!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, "Fail!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    Toast.makeText(RegistrationActivity02.this, "All fields required, and check format!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "All fields required, and check format!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -173,7 +174,7 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(RegistrationActivity02.this, MainActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -293,7 +294,7 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(RegistrationActivity02.this, MainActivity.class);
+                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -311,20 +312,22 @@ public class RegistrationActivity02 extends AppCompatActivity implements DatePic
 
     }
 
-    // Populate items for GP spinner
-    public void setGpSpinner(DBHelper dbHelper, Spinner gp)
-    {
-        List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray = dbHelper.getDoctorsName();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gp.setAdapter(adapter);
-        // ===================================================
-    }
+
 
     // Inner static tool class
     public static class Tools {
+
+        // Populate items for GP spinner
+        public static void setGpSpinner(DBHelper dbHelper, Spinner gp, Context context)
+        {
+            List<String> spinnerArray =  new ArrayList<String>();
+            spinnerArray = dbHelper.getDoctorsName();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    context, android.R.layout.simple_spinner_item, spinnerArray);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            gp.setAdapter(adapter);
+            // ===================================================
+        }
 
         // Perform EditText click
         public void performClick(EditText firstName, EditText lastName, EditText email)

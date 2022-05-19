@@ -1,5 +1,8 @@
 package com.example.haystreethealthyhub;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -41,14 +44,20 @@ public class PatientProfileFragment extends Fragment {
 
     Button profileEditIcon;
 
+    Context _context;
+
     // Inner tool class
-    RegistrationActivity02.Tools tools = new RegistrationActivity02.Tools();
+    RegistrationActivity.Tools tools = new RegistrationActivity.Tools();
 
     // Validation marker for First name, Last nme
     private boolean firstNameMarker = false;
     private boolean lastNameMarker = false;
     // ========================================================================
 
+    public PatientProfileFragment(Context context)
+    {
+        _context = context;
+    }
 
     @Nullable
     @Override
@@ -94,7 +103,8 @@ public class PatientProfileFragment extends Fragment {
         // Click on icon and open ActionMode bar
         profileEditIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 profileEditButton();
             }
         });
@@ -228,7 +238,7 @@ public class PatientProfileFragment extends Fragment {
     public void profileEditButton()
     {
         // ActionMode Menu
-        this.getActivity().startActionMode(new ActionMode.Callback() {
+        getActivity().startActionMode(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                 actionMode.getMenuInflater().inflate(R.menu.profile_action_mode_menu, menu);
@@ -254,7 +264,7 @@ public class PatientProfileFragment extends Fragment {
                     case R.id.option_save:
                         actionMode.finish();
                         profileEditSave();
-                        setFieldsUnEditable();
+
                         return true;
 
                     default:
@@ -285,13 +295,15 @@ public class PatientProfileFragment extends Fragment {
         gp.setEnabled(true);
 
         confirmPassword.setVisibility(View.VISIBLE);
+        confirmPassword.setEnabled(true);
     }
 
     // EditSave
     public void profileEditSave()
     {
         // Check password changed or not
-        if(password.getText().toString().trim().equals(patient.getPassword()))
+        if(password.getText().toString().trim().equals(patient.getPassword()) &&
+                confirmPassword.getText().toString().trim().equals(""))
         {
             // user didn't changed password than set the confirmPassword automatically
             confirmPassword.setText(password.getText().toString().trim());
@@ -317,19 +329,52 @@ public class PatientProfileFragment extends Fragment {
             if( dbHelper.updatePatient(patient) )
             {
                 // Saved!
-                Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
+                confirmUpdateSaved();
+                setFieldsUnEditable();
             }
             else
             {
                 // Fail!
-                Toast.makeText(getActivity(), "Fail!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "App Error!", Toast.LENGTH_SHORT).show();
             }
         }
         else
         {
-            Toast.makeText(getActivity(), "All fields required, and check format!", Toast.LENGTH_SHORT).show();
+            updateFail();
         }
 
+    }
+
+    // Profile update Dialog
+    public void confirmUpdateSaved()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Profile Updated ！")
+                .setMessage("You have updated successfully.")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    // Profile update Dialog
+    public void updateFail()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Error ！")
+                .setMessage("All fields required, and check input format please.")
+                .setPositiveButton("Back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        builder.create().show();
     }
 
 }

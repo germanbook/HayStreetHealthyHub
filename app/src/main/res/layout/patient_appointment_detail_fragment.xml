@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appointment_list_bg"
+    android:backgroundTintMode="src_in">
+
+    <TextView
+        android:id="@+id/appointment_details_docName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/alatsi"
+
+
+        android:text="doctor name"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/appointment_details_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appointment_details_docName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/allerta"
+        android:text="@string/Text_ClinicAddress"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/appointment_details_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appointment_details_address"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/allerta"
+
+        android:text="@string/Text_ClinicPhone"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/appointment_details_note"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_below="@+id/appointment_details_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border"
+        android:fontFamily="@font/alata"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/Empty_Note"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/appointment_details_btnback"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appointment_details_note"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/Button_Back"
+        android:textColor="#FFFFFFFF"
+        android:textSize="20sp" />
+
+</RelativeLayout>

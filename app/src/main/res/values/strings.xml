@@ -11,6 +11,10 @@
     <string name="Patient_Home_Title">My Health</string>
     <!-- -->
 
+    <!-- Doctor Home Main Menu -->
+    <string name="Doctor_Home_Title">Hi Doctor</string>
+    <!-- -->
+
     <!-- 01 Login Page -->
     <string name="app_name">HayStreetHealthyHub....</string>
     <string name="Text_Login">Login</string>
@@ -48,15 +52,19 @@
 
     <!-- 05 Patient's Doctor Note Page -->
     <string name="Text_ClinicAddress">111 Hay St. Lower Hutt</string>
+    <string name="Text_ClinicPhone">021 666 888</string>
     <!-- ========== -->
 
     <!-- 06 Patient's Appointments Page -->
     <string name="Button_Booking">Booking</string>
+    <string name="Empty_Note">Notes: Please ask your doctor for a medical notes.</string>
     <!-- ========== -->
 
     <!-- 07 Patient's Booking Appointments Page -->
     <string name="Text_Date">Date:</string>
     <string name="Text_Time">Time:</string>
+    <string name="Text_VisitReason">Visit Reason:</string>
+    <string name="Text_Booking_Time_Hint">hh:mm</string>
     <!-- ========== -->
 
     <!-- 08 Doctor's first page -->
