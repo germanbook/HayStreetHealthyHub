@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientHomeMenuActivity"
-    android:id="@+id/PatientHomeDrawerLayout"
+    tools:context=".DoctorHomeMenuActivity"
+    android:id="@+id/DoctorHomeDrawerLayout"
     >
 
 
@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/PatientHomeToolbar"
+            android:id="@+id/DoctorHomeToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#9FC96F"
@@ -25,18 +25,18 @@
             android:paddingEnd="10dp">
 
             <TextView
-                android:id="@+id/PatientHomeCustomTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/DocotrHomeCustomTitle"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
-                android:paddingStart="30dp"
-                android:text="@string/Patient_Home_Title"
+                android:paddingStart="35dp"
+                android:text="@string/Doctor_Home_Title"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/profile_edit_icon"
+                android:id="@+id/action_bar_edit_icon"
                 android:visibility="invisible"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -54,12 +54,12 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/PatientHomeNavView"
+        android:id="@+id/DoctorHomeNavView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/main_menu_header"
-        app:menu="@menu/patient_main_menu">
+        app:menu="@menu/doctor_main_menu">
     </com.google.android.material.navigation.NavigationView>
 
 

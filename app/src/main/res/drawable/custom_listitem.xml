@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <item android:drawable="@color/button_unpressed" android:state_pressed="false" >
+    </item>
+
+
+    <item android:drawable="@color/appointment_item_pressed" android:state_pressed="true" >
+    </item>
+
+</selector>

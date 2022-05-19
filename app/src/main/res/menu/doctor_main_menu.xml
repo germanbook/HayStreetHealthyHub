@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single" android:id="@+id/items">
+        <item
+            android:id="@+id/doctor_menu_home"
+            android:title="Home"
+            android:icon="@drawable/main_menu_home"
+            />
+        <item
+            android:id="@+id/doctor_menu_patients"
+            android:title="My Patients"
+            android:icon="@drawable/main_menu_my_patients"
+            />
+        <item
+            android:id="@+id/doctor_menu_appointment"
+            android:title="Appoinment"
+            android:icon="@drawable/main_menu_appointment"
+            />
+    </group>
+
+    <group android:checkableBehavior="single" android:id="@+id/logout">
+        <item
+            android:id="@+id/doctor_menu_logout"
+            android:title="Logout"
+            android:icon="@drawable/main_menu_logout"
+            />
+    </group>
+
+</menu>

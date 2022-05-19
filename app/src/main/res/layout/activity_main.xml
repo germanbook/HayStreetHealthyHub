@@ -10,6 +10,7 @@
     >
 
     <ImageView
+        android:id="@+id/App_logo"
         android:layout_width="160dp"
         android:layout_height="148dp"
         android:layout_gravity="center"
@@ -107,7 +108,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/ButtonJoinNow"
+            android:id="@+id/ButtonRegistration"
             android:text="@string/Button_Register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
